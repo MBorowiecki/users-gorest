@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import Comments from './comments';
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
 `
 
@@ -12,19 +16,22 @@ const Name = styled.div`
     font-size: 22px;
     color: #060909;
     text-align: center;
+
+    margin: 16px 0px 0px 0px;
 `
 
 const Posts = styled.div`
-    display: grid;
-    grid-template-columns: 15% 15% 15% 15% 15%;
-    justify-content: space-evenly;
-    row-gap: 32px;
-    margin: 16px 0px 32px 0px;
+    margin: 0px 0px 32px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 
 const Post = styled.article`
     border-radius: 10px;
     box-shadow: 0px 4px 10px #00000066;
+    margin: 16px;
+    width: 500px;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -43,15 +50,37 @@ const Post = styled.article`
         color: #060909;
         font-weight: 300;
     }
+
+    .showComments{
+        font-family: 'Roboto', sans-serif;
+
+        border: 2px solid #1472c4;
+        color: #1472c4;
+        font-size: 16px;
+        margin: 8px 0px 0px 0px;
+        padding: 8px;
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 10px;
+        transition: background-color 150ms;
+
+        :focus{
+            outline: none;
+        }
+
+        :hover{
+            cursor: pointer;
+            background-color: #eeeeee;
+        }
+    }
 `
 
 const ShowMorePosts = styled.input`
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     color: #060909;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 16px;
+    padding: 8px;
     background-color: #ffffff;
     border-radius: 10px;
     border: none;
@@ -61,10 +90,16 @@ const ShowMorePosts = styled.input`
         cursor: pointer;
         background-color: #eeeeee;
     }
+
+    :focus{
+        outline: none;
+    }
 `
 
 const SelectedUser = ({user}) => {
     const [showMorePosts, setShowMorePosts] = useState(false);
+    const [selectedPost, setSelectedPost] = useState({});
+    const [isCommentsSectionOpen, setIsCommentSectionOpen] = useState(false);
 
     useEffect(() => {
         setShowMorePosts(false);
@@ -80,6 +115,15 @@ const SelectedUser = ({user}) => {
                             <Post>
                                 <span className="title">{user.posts[0].title}</span>
                                 <span className="body">{user.posts[0].body}</span>
+                                <input 
+                                    type="button" 
+                                    className="showComments" 
+                                    value="Show comments" 
+                                    onClick={() => {
+                                        setSelectedPost(user.posts[0]);
+                                        setIsCommentSectionOpen(true);
+                                    }}
+                                />
                             </Post>
                             {!showMorePosts &&
                                 <ShowMorePosts 
@@ -88,12 +132,21 @@ const SelectedUser = ({user}) => {
                                     onClick={() => setShowMorePosts(true)} 
                                 />
                             }
-                            {user.posts.map(post => {
-                                if(showMorePosts){
+                            {user.posts.map((post, index) => {
+                                if(showMorePosts && index > 0){
                                     return(
                                         <Post>
                                             <span className="title">{post.title}</span>
                                             <span className="body">{post.body}</span>
+                                            <input 
+                                                type="button" 
+                                                className="showComments" 
+                                                value="Show comments" 
+                                                onClick={() => {
+                                                    setSelectedPost(post);
+                                                    setIsCommentSectionOpen(true);
+                                                }}
+                                            />
                                         </Post>
                                     )
                                 }
@@ -102,6 +155,7 @@ const SelectedUser = ({user}) => {
                     }
                 </Container>
             }
+            <Comments post={selectedPost} open={isCommentsSectionOpen} setOpen={setIsCommentSectionOpen} />
         </>
     )
 }

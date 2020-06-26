@@ -24,6 +24,10 @@ const Select = styled.div`
         background-color: transparent;
         border-right: 1px solid #aaaaaa;
         padding: 0px 8px 0px 0px;
+
+        :focus{
+            outline: none;
+        }
     }
 
     .icon{
@@ -46,12 +50,13 @@ const Dropdown = styled.div`
     border: 1px solid #666666;
     box-shadow: 0px 4px 10px #00000055;
     padding: 8px;
-    margin: 8px;
     width: 300px;
     overflow-y: scroll;
+    position: absolute;
+    top: 120px;
 
-    transition: height 250ms 100ms, transform ${props => props.isDropdownOpen ? "0ms" : "150ms"} ${props => props.isDropdownOpen ? "100ms" : "350ms"};
-    height: ${props => props.isDropdownOpen ? "200px" : "0px"};
+    transition: max-height 250ms 100ms, transform ${props => props.isDropdownOpen ? "0ms" : "150ms"} ${props => props.isDropdownOpen ? "100ms" : "350ms"};
+    max-height: ${props => props.isDropdownOpen ? "200px" : "0px"};
     transform: scaleX(${props => props.isDropdownOpen ? "1" : "0"});
 `
 
@@ -107,7 +112,7 @@ const SearchableSelect = ({users, placeholder, setSelectedUser}) => {
                 />
                 <IoIosArrowDropdown 
                     className="icon" 
-                    onClick={() => setSearchBoxFocused(true)} 
+                    onClick={() => setSearchBoxFocused(!searchBoxFocused)} 
                 />
             </Select>
             <Dropdown isDropdownOpen={searchBoxFocused}>
@@ -116,7 +121,10 @@ const SearchableSelect = ({users, placeholder, setSelectedUser}) => {
                         <User 
                             active={user.status === "active"}
                             key={user.id}
-                            onClick={() => setSelectedUser(user)}
+                            onClick={() => {
+                                setSelectedUser(user)
+                                setSearchText(user.last_name)
+                            }}
                         >
                             <div className="active" />
                             <span className="name">
