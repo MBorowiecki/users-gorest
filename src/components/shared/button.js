@@ -28,6 +28,10 @@ const Button = styled.button`
 
     .text{
         font-size: 18px;
+
+        @media (max-width: 350px){
+            font-size: 16px;
+        }
     }
 `
 

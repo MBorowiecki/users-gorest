@@ -109,6 +109,7 @@ const Comments = ({post, open, setOpen}) => {
         .catch(err => {
             console.log(err)
             setLoading(false);
+            alert("There was an error. Check console.");
         })
     }
 
@@ -124,6 +125,13 @@ const Comments = ({post, open, setOpen}) => {
                 setLoading(true);
                 GetComments();
             })
+            .catch(err => {
+                setSending(false);
+                console.log(err);
+                alert("There was an error. Check console.");
+            })
+        }else{
+            alert("Please fill all forms.");
         }
     }
 
@@ -173,7 +181,9 @@ const Comments = ({post, open, setOpen}) => {
             {comments.length > 0 ?
                 comments.map(comment => {
                     return(
-                        <Comment>
+                        <Comment
+                            key={comment.id}
+                        >
                             <span className="name">
                                 {comment.name}
                             </span>

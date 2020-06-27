@@ -52,7 +52,7 @@ const Index = () => {
     }
 
     const ChangeUserName = (user, first_name, last_name, setUpdating, setOpen) => {
-        if(Object.keys(user).length > 0 && first_name.length > 0 && last_name.length > 0){
+        if(Object.keys(user).length > 0 && first_name && last_name ){
             axios.put(`https://gorest.co.in/public-api/users/${user.id}`, {
                 first_name, 
                 last_name, 
@@ -68,8 +68,19 @@ const Index = () => {
                     setOpen(false);
                     setUsers([]);
                     GetUsers();
+                }else{
+                    console.log(res);
                 }
             })
+            .catch(err => {
+                console.log(err);
+                setUpdating(false);
+                setOpen(false);
+                alert("There was an error. Check console.");
+            })
+        }else{
+            setUpdating(false);
+            alert("Please fill all forms.");
         }
     }
 

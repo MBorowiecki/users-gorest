@@ -13,6 +13,10 @@ const Select = styled.div`
 
     transition: box-shadow 250ms;
     box-shadow: 0px 0px 5px ${props => props.isDropdownOpen ? "#1472c4bb" : "#1472c400"};
+
+    @media (max-width: 350px){
+        width: 250px;
+    }
     
     .input{
         font-family: 'Roboto', sans-serif;

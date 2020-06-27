@@ -33,6 +33,14 @@ const TopComponent = styled.div`
         font-family: 'Roboto', sans-serif;
         font-size: 22px;
         color: #060909;
+
+        @media (max-width: 450px){
+            font-size: 20px;
+        }
+
+        @media (max0width: 350px){
+            font-size: 18px;
+        }
     }
 `
 
@@ -56,8 +64,12 @@ const Post = styled.article`
         width: 400px;
     }
 
-    @media (max-width: 400px){
+    @media (max-width: 450px){
         width: 300px;
+    }
+
+    @media (max-width: 350px){
+        width: 250px;
     }
 
     .title{

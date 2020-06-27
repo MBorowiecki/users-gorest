@@ -42,8 +42,12 @@ const Container = styled.div`
         width: 400px;
     }
 
-    @media (max-width: 400px){
+    @media (max-width: 450px){
         width: 300px;
+    }
+
+    @media (max-width: 350px){
+        width: 250px;
     }
 `
 
