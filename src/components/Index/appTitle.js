@@ -5,7 +5,7 @@ const Title = styled.h1`
     font-family: 'Open-sans', sans-serif;
 
     font-size: 32px;
-    color: #060909;
+    color: #1472c4;
     font-weight: 600;
     margin: 16px;
     text-align: center;

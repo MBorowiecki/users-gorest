@@ -28,6 +28,10 @@ const Select = styled.div`
         :focus{
             outline: none;
         }
+
+        @media (max-width: 500px){
+            font-size: 16px;
+        }
     }
 
     .icon{
@@ -40,6 +44,14 @@ const Select = styled.div`
 
         :hover{
             cursor: pointer;
+        }
+
+        @media (max-width: 500px){
+            font-size: 18px;
+        }
+
+        @media (max-width: 400px){
+            font-size: 16px;
         }
     }
 `
